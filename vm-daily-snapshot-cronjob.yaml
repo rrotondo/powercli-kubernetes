@@ -1,3 +1,5 @@
+#Created by riccardo.rotondo@ct.infn.it
+
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
