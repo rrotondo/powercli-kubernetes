@@ -1,0 +1,5 @@
+# Ignoring files containing password
+*.password
+MyCredential.xml
+# Visual Studio Code files
+.vscode

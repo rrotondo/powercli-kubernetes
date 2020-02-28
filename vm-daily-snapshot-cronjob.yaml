@@ -1,0 +1,37 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: vm-daily-snapshot
+  labels:
+    app: powercli
+spec:
+  schedule: "30 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: vm-daily-snapshot
+            image: vmware/powerclicore
+            command: ["/usr/bin/pwsh"]
+            env:
+              - name: SERVER
+                valueFrom:
+                  secretKeyRef:
+                    name: powercli-secret
+                    key: server 
+            args: ["/root/script/VMSnapshot.ps1", "-server", "$(SERVER)", 
+                  "-credfile", "/root/cred/MyCredential.xml"]
+            volumeMounts:
+            - name: powercli-secret-credential
+              mountPath: /root/cred
+            - name: powercli-script-snap
+              mountPath: /root/script
+          volumes:
+          - name: powercli-secret-credential
+            secret:
+              secretName: powercli-secret-credential
+          - name: powercli-script-snap
+            configMap:
+              name: powercli-script-snap
+          restartPolicy: OnFailure
