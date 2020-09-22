@@ -26,7 +26,7 @@ CronJob uses two different secrets:
 $User = "Username"   
 $Pass = "Password" | ConvertTo-SecureString -AsPlainText -Force 
 $Credentials = New-Object System.Management.Automation.PSCredential($User,$Pass)
-$Credentials | Export-CliXml -Path MyCrential.xml
+$Credentials | Export-CliXml -Path MyCredential.xml
 ```
 After create a secret containing the credential file
 ```console
