@@ -26,10 +26,8 @@ $ErrorActionPreference = "Continue"
 
 #Connect to the server using the credentials file      
 $creds = Import-Clixml -Path $credfile
-$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($creds.Password)
-$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 
-Connect-VIServer -Server $server -User $creds.UserName -Password $password
+Connect-VIServer -Server $server -Credential $creds
 
     
     #Get all VMs having ScheduleSnapshot set to $schedule 
